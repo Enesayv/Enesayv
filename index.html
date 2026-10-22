@@ -1,322 +1,800 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BİLARDİO | Premium Bilardo Haber & Oyun Platformu</title>
-    <!-- Google Fonts: Elit ve lüks yazı tipleri -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>BİLARDİO - Masa Sporları & Online Bilardo Platformu</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#0B0F17',
+                        brandCard: '#161B26',
+                        brandBorder: '#232A3B',
+                        emeraldAccent: '#10B981',
+                        goldAccent: '#F59E0B'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* BİLARDİO Kurumsal Renk Paleti ve CSS Ayarları */
-        :root {
-            --bg-color: #0b0c10;       /* Ultra derin siyah */
-            --surface-color: #1f2833;  /* Premium koyu lacivert/gri */
-            --gold: #c5a059;           /* Şampanya Altını */
-            --gold-glow: rgba(197, 160, 89, 0.3);
-            --text-main: #ffffff;
-            --text-muted: #c5c6c7;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
+            background-color: #0B0F17;
+            color: #E5E7EB;
         }
 
-        /* BİLARDİO Navigasyon Barı */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
-            background: rgba(11, 12, 16, 0.9);
+        .glass-panel {
+            background: rgba(22, 27, 38, 0.85);
             backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: 4px;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        #billiardCanvas {
+            background-color: #095228;
+            border: 14px solid #1c130d;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.6);
+            touch-action: none;
         }
 
-        .logo span {
-            color: var(--gold);
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        .logo:hover {
-            text-shadow: 0 0 15px var(--gold-glow);
+        ::-webkit-scrollbar-track {
+            background: #0B0F17;
         }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-left: 35px;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.3s;
+        ::-webkit-scrollbar-thumb {
+            background: #232A3B;
+            border-radius: 4px;
         }
-
-        nav a:hover, nav a.active {
-            color: var(--gold);
-            letter-spacing: 3px;
-        }
-
-        /* BİLARDİO Hero Karşılama Alanı */
-        .hero {
-            position: relative;
-            height: 75vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background: linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.98)), 
-                        url('https://unsplash.com') no-repeat center center/cover;
-        }
-
-        .hero-badge {
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 6px 16px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 25px;
-            border-radius: 20px;
-        }
-
-        .hero h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 56px;
-            color: var(--text-main);
-            margin-bottom: 20px;
-            letter-spacing: 5px;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 16px;
-            max-width: 650px;
-            margin-bottom: 40px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-bilardio {
-            display: inline-block;
-            padding: 14px 40px;
-            border: 1px solid var(--gold);
-            color: var(--text-main);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            background: transparent;
-            transition: all 0.4s ease;
-        }
-
-        .btn-bilardio:hover {
-            background-color: var(--gold);
-            color: var(--bg-color);
-            box-shadow: 0 0 25px var(--gold-glow);
-            cursor: pointer;
-        }
-
-        /* Ana İçerik Konteyneri */
-        .container {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 32px;
-            color: var(--text-main);
-            margin-bottom: 50px;
-            text-align: center;
-            letter-spacing: 3px;
-        }
-
-        .section-title span {
-            color: var(--gold);
-        }
-
-        /* BİLARDİO Seçkin Haber Kartları */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-bottom: 80px;
-        }
-
-        .news-card {
-            background-color: #11141a;
-            border: 1px solid rgba(197, 160, 89, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .news-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--gold);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-
-        .news-img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            filter: grayscale(20%);
-            transition: all 0.5s ease;
-        }
-
-        .news-card:hover .news-img {
-            filter: grayscale(0%);
-            scale: 1.03;
-        }
-
-        .news-content {
-            padding: 30px;
-        }
-
-        .news-tag {
-            color: var(--gold);
-            font-size: 10px;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            display: inline-block;
-        }
-
-        .news-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .news-card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 25px;
-            font-weight: 300;
-        }
-
-        .read-more {
-            color: var(--gold);
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.2s;
-        }
-
-        .read-more:hover {
-            color: var(--text-main);
-        }
-
-        /* BİLARDİO Oyun Alanı Modülü */
-        .game-zone {
-            background: linear-gradient(135deg, #11141a 0%, #0b0c10 100%);
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            padding: 60px 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-zone::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 3px;
-            background: var(--gold);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 50px 20px;
-            border-top: 1px solid rgba(197, 160, 89, 0.1);
-            color: rgba(197, 160, 89, 0.6);
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10B981;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-black">
 
-    <!-- BİLARDİO Üst Menü -->
-    <header>
-        <a href="#" class="logo">BİLAR<span>DİO</span></a>
-        <nav>
-            <a href="#" class="active">Ana Sayfa</a>
-            <a href="#">Seçkin Haberler</a>
-            <a href="#">Oyun Arenası</a>
-            <a href="#">Pro Kulüp</a>
-        </nav>
-    </header>
-
-    <!-- BİLARDİO Karşılama Alanı -->
-    <section class="hero">
-        <div class="hero-badge">The Elite Club</div>
-        <h1>BİLAR<span>DİO</span></h1>
-        <p>Bilardo kültürünün en prestijli haberleri, profesyonel ekipman incelemeleri ve çok yakında yeni nesil Java fizik motoruyla tarayıcınıza gelecek özel oyun arenası.</p>
-        <a href="#arena" class="btn-bilardio">Arenaya Giriş Yap</a>
-    </section>
-
-    <!-- İçerik Alanı -->
-    <main class="container">
-        
-        <!-- Haberler Bölümü -->
-        <h2 class="section-title">Seçkin <span>Haberler</span></h2>
-        
-        <div class="news-grid">
-            <!-- Haber 1 -->
-            <article class="news-card">
-                <img src="https://unsplash.com" alt="Turnuva" class="news-img">
-                <div class="news-content">
-                    <span class="news-tag">Şampiyona Medyası</span>
-                    <h3>Dünya Kupası'nda Elit Eşleşmeler</h3>
-                    <p>Bilardo dünyasının zirvesindeki isimler, bu sezonun en prestijli kupasını müzelerine götürmek için yeşil masada kusursuzluğu arıyor.</p>
-                    <a href="#" class="read-more">Raporu İncele →</a>
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 z-50 bg-brandDark/90 backdrop-blur-md border-b border-brandBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-emerald-400 flex items-center justify-center shadow-lg">
+                        <i class="fa-solid fa-circle-dot text-brandDark text-xl"></i>
+                    </div>
+                    <span class="text-2xl sm:text-3xl font-black tracking-wider text-white">
+                        BİLARD<span class="text-emerald-400 font-black">İO</span>
+                    </span>
                 </div>
-            </article>
 
-            <!-- Haber 2 -->
-            <article class="news-card">
-                <img src="https://unsplash.com" alt="Istaka" class="news-img">
-                <div class="news-content">
-                    <span class="news-tag">Masterclass & Ekipman</span>
-                    <h3>Özel Yapım Abanoz İstakalar</h3>
-                    <p>Mühendislik ve el işçiliğinin lüks birleşimi. Profesyonel sporcular için sınırlı sayıda üretilen karbon destekli yeni serinin detayları.</p>
-                    <a href="#" class="read-more">Detayları Gör →</a>
+                <!-- Navigasyon Linkleri -->
+                <nav class="hidden md:flex space-x-2">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-link px-4 py-2 rounded-xl text-xs font-bold transition-all text-white bg-white/5 border border-white/10">
+                        Ana Sayfa
+                    </button>
+                    <button onclick="switchTab('game')" id="nav-game" class="nav-link px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5">
+                        Online Bilardo
+                    </button>
+                    <button onclick="switchTab('news')" id="nav-news" class="nav-link px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5">
+                        Masa Sporları Haberleri
+                    </button>
+                    <button onclick="switchTab('about')" id="nav-about" class="nav-link px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5">
+                        Hakkımızda
+                    </button>
+                </nav>
+
+                <!-- Mobil Menü Butonu -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
                 </div>
-            </article>
+            </div>
         </div>
 
+        <!-- Mobil Menü -->
+        <div id="mobileMenu" class="hidden md:hidden glass-panel border-t border-brandBorder px-4 py-3 space-y-2">
+            <button onclick="switchTab('home'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-white hover:bg-white/5">Ana Sayfa</button>
+            <button onclick="switchTab('game'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-emerald-400 hover:bg-white/5">Online Bilardo</button>
+            <button onclick="switchTab('news'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:bg-white/5">Masa Sporları Haberleri</button>
+            <button onclick="switchTab('about'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:bg-white/5">Hakkımızda</button>
+        </div>
+    </header>
+
+    <!-- ANA İÇERİK -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- SEKMELER 1: ANA SAYFA -->
+        <section id="tab-home" class="space-y-10">
+            <!-- Karşılama Banner -->
+            <div class="relative rounded-3xl overflow-hidden glass-panel p-8 md:p-12 border border-brandBorder">
+                <div class="max-w-2xl space-y-5">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Kuruluş 2026
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+                        Masa Sporları & Dijital Bilardo Platformu
+                    </h1>
+                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                        BİLARDİO, masa sporlarıyla ilgili güncel gelişmeleri, turnuva haberlerini ve kendi altyapısında sunulan etkileşimli online bilardo simülasyonunu bir arada sunar.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <button onclick="switchTab('game')" class="bg-emerald-500 hover:bg-emerald-400 text-brandDark font-extrabold px-6 py-3.5 rounded-xl shadow-lg transition-all text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-gamepad text-base"></i> Online Bilardo Oyna
+                        </button>
+                        <button onclick="switchTab('news')" class="glass-panel hover:bg-white/10 text-white font-bold px-6 py-3.5 rounded-xl border border-white/10 transition-all text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-newspaper text-emerald-400"></i> Haberleri Oku
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Öne Çıkan Modüller -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-2xl hover:border-emerald-500/40 transition-all cursor-pointer" onclick="switchTab('game')">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl mb-4">
+                        <i class="fa-solid fa-circle-dot"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Fizik Tabanlı Bilardo Simülasyonu</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Top çarpışmaları, bant sekmeleri ve hassas açı çizgileriyle akıcı 8-Top bilardo deneyimi.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl hover:border-emerald-500/40 transition-all cursor-pointer" onclick="switchTab('news')">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xl mb-4">
+                        <i class="fa-solid fa-newspaper"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Masa Sporları Haber Portalı</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Bilardo, Snooker, Masa Tenisi ve Dart branşlarında güncel ulusal ve uluslararası haberler.</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl hover:border-emerald-500/40 transition-all cursor-pointer" onclick="switchTab('about')">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">2026 Kuruluşlu Dijital Yapı</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Masa sporları dünyasını dijital imkanlarla tek çatı altında buluşturan bağımsız platform.</p>
+                </div>
+            </div>
+
+            <!-- Öne Çıkan Haber Özetleri -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between border-b border-brandBorder pb-3">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-emerald-400 text-base"></i> Son Haberler
+                    </h2>
+                    <button onclick="switchTab('news')" class="text-xs font-semibold text-emerald-400 hover:underline">
+                        Tümünü Gör <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="homeNewsPreview"></div>
+            </div>
+        </section>
+
+        <!-- SEKMELER 2: BİLARDO OYUNU -->
+        <section id="tab-game" class="hidden space-y-6">
+            <!-- Oyun Kontrol Paneli -->
+            <div class="glass-panel p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-extrabold rounded-md uppercase">
+                        8-Ball Simülatör
+                    </span>
+                    <span class="text-xs text-gray-400">Nişan almak için fareyi hareket ettirin, Vur tuşuna veya boşluk tuşuna basarak güç toplayın.</span>
+                </div>
+
+                <div class="flex items-center space-x-6 text-xs font-bold">
+                    <div>
+                        <span class="text-gray-400">Giren Toplar:</span>
+                        <span id="scoreText" class="text-emerald-400 text-sm font-mono ml-1">0 / 7</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-400">Atış Sayısı:</span>
+                        <span id="shotsText" class="text-white text-sm font-mono ml-1">0</span>
+                    </div>
+                    <button onclick="resetGame()" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-lg text-xs transition-all">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Yeni Oyun
+                    </button>
+                </div>
+            </div>
+
+            <!-- Canvas Alanı -->
+            <div class="relative w-full flex flex-col items-center justify-center glass-panel p-4 rounded-3xl">
+                <!-- Güç Barı ve Kontroller -->
+                <div class="w-full max-w-4xl flex items-center justify-between mb-3 text-xs text-gray-300 font-semibold px-2">
+                    <div>
+                        <span>İstaka Açısı: <span id="angleValue" class="text-emerald-400 font-mono">0°</span></span>
+                    </div>
+                    <div class="flex items-center gap-3 w-1/2 justify-end">
+                        <span class="text-gray-400">Vuruş Gücü:</span>
+                        <div class="w-36 h-3 bg-brandDark rounded-full overflow-hidden border border-brandBorder">
+                            <div id="powerBarFill" class="h-full w-0 bg-gradient-to-r from-emerald-500 to-red-500 transition-all duration-75"></div>
+                        </div>
+                        <span id="powerPercent" class="font-mono text-emerald-400 min-w-[35px]">0%</span>
+                    </div>
+                </div>
+
+                <canvas id="billiardCanvas" width="850" height="425" class="max-w-full h-auto cursor-crosshair"></canvas>
+
+                <div class="mt-4 flex flex-wrap justify-center gap-3">
+                    <button id="strikeBtn" onmousedown="startCharging()" onmouseup="releaseStrike()" ontouchstart="startCharging()" ontouchend="releaseStrike()" class="bg-emerald-500 hover:bg-emerald-400 text-brandDark font-extrabold px-8 py-3 rounded-xl shadow-lg transition-all text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-bullseye mr-1"></i> Vuruş Yap (Basılı Tut)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKMELER 3: HABER PORTALI -->
+        <section id="tab-news" class="hidden space-y-6">
+            <!-- Filtreler ve Arama -->
+            <div class="glass-panel p-5 rounded-2xl flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="flex flex-wrap gap-2 w-full md:w-auto" id="newsCategories">
+                    <button onclick="filterNews('Tümü')" class="cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-emerald-500 text-brandDark">Tüm Haberler</button>
+                    <button onclick="filterNews('Bilardo')" class="cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-brandDark text-gray-400 hover:text-white border border-brandBorder">Bilardo</button>
+                    <button onclick="filterNews('Snooker')" class="cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-brandDark text-gray-400 hover:text-white border border-brandBorder">Snooker</button>
+                    <button onclick="filterNews('Masa Tenisi')" class="cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-brandDark text-gray-400 hover:text-white border border-brandBorder">Masa Tenisi</button>
+                    <button onclick="filterNews('Dart')" class="cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-brandDark text-gray-400 hover:text-white border border-brandBorder">Dart</button>
+                </div>
+
+                <div class="relative w-full md:w-64">
+                    <input type="text" id="newsSearchInput" onkeyup="searchNews()" placeholder="Haber ara..." class="w-full bg-brandDark border border-brandBorder text-white pl-9 pr-3 py-2 rounded-xl text-xs focus:outline-none focus:border-emerald-500 transition-colors">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-500 text-xs"></i>
+                </div>
+            </div>
+
+            <!-- Haber Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="newsGrid"></div>
+        </section>
+
+        <!-- SEKMELER 4: HAKKIMIZDA -->
+        <section id="tab-about" class="hidden space-y-8">
+            <div class="glass-panel p-8 md:p-12 rounded-3xl space-y-6">
+                <span class="px-3.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-block uppercase">
+                    Kurumsal Bilgilendirme
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-white">
+                    Bilardio Hakkında
+                </h1>
+                <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                    2026 yılında kurulan <strong>BİLARDİO</strong>, masa sporları alanındaki gelişmeleri habercilik ilkesiyle bir araya getiren ve kullanıcılarına web tarayıcısı üzerinden oynanabilen bilardo simülasyonu sunan bağımsız bir dijital platformdur.
+                </p>
+                <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                    Platformumuz bünyesinde Bilardo, Snooker, Masa Tenisi ve Dart branşlarına dair turnuva sonuçları, organizasyon duyuruları ve spor dünyasından haberler yayınlanmaktadır. Aynı zamanda kullanıcıların herhangi bir eklenti yüklemeden erişebileceği 8-Top bilardo oyunu altyapısını barındırmaktadır.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- HABER MODALI -->
+    <div id="newsModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-panel max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-3xl border border-brandBorder p-6 md:p-8 space-y-5 relative">
+            <button onclick="closeNewsModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white bg-brandDark p-2 rounded-full">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <span id="modalCategory" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-block">
+                Kategori
+            </span>
+            <h2 id="modalTitle" class="text-2xl font-bold text-white leading-snug">Haber Başlığı</h2>
+            <div class="text-xs text-gray-400 border-b border-brandBorder pb-3">
+                <span id="modalDate"><i class="fa-regular fa-calendar mr-1"></i> Tarih</span>
+            </div>
+            <img id="modalImage" src="" alt="" class="w-full h-64 object-cover rounded-2xl">
+            <div id="modalContent" class="text-gray-300 text-sm leading-relaxed space-y-3"></div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-brandBorder bg-brandDark py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+            <div class="flex items-center space-x-2">
+                <span class="font-bold text-white">BİLARD<span class="text-emerald-400">İO</span></span>
+                <span>— © 2026 Tüm Hakları Saklıdır.</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" onclick="switchTab('home')" class="hover:text-white">Ana Sayfa</a>
+                <a href="#" onclick="switchTab('game')" class="hover:text-white">Bilardo Oyna</a>
+                <a href="#" onclick="switchTab('news')" class="hover:text-white">Haberler</a>
+                <a href="#" onclick="switchTab('about')" class="hover:text-white">Hakkımızda</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // 1. HABER VERİLERİ
+        const newsData = [
+            {
+                id: 1,
+                title: "3-Bant Bilardo Şampiyonası'nda Final Heyecanı",
+                category: "Bilardo",
+                date: "22 Ekim 2026",
+                image: "https://images.unsplash.com/photo-1579952318893-20a3100c1bb2?auto=format&fit=crop&w=800&q=80",
+                snippet: "Dünya 3-Bant Bilardo Şampiyonası yarın oynanacak final müsabakası ile tamamlanıyor.",
+                content: "Dünya 3-Bant Bilardo Şampiyonası'nda son turlar tamamlandı. Çeyrek ve yarı final müsabakalarında yüksek ortalamalar yakalayan sporcular finale adını yazdırdı. Şampiyonluk maçı canlı yayınla ekranlara gelecek."
+            },
+            {
+                id: 2,
+                title: "2026 Dünya Snooker Şampiyonası Açılış Maçları",
+                category: "Snooker",
+                date: "20 Ekim 2026",
+                image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80",
+                snippet: "Crucible Tiyatrosu'nda başlayan turnuvada ilk tur eşleşmeleri sergilendi.",
+                content: "Snooker dünyasının merakla beklediği Dünya Snooker Şampiyonası başladı. İlk turda mücadele eden seribaşı oyuncular üst tura yükselmeyi başardı."
+            },
+            {
+                id: 3,
+                title: "Masa Tenisi Süper Lig Final Etabı Başlıyor",
+                category: "Masa Tenisi",
+                date: "18 Ekim 2026",
+                image: "https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?auto=format&fit=crop&w=800&q=80",
+                snippet: "Süper Lig'de sezonun en iyi dört takımı şampiyonluk için mücadele edecek.",
+                content: "Türkiye Masa Tenisi Süper Ligi'nde normal sezonun ardından final etabı maçlarının takvimi açıklandı. Karşılaşmalar hafta sonu başlayacak."
+            },
+            {
+                id: 4,
+                title: "Dünya Dart Turnuvası'nda Mükemmel Seri",
+                category: "Dart",
+                date: "15 Ekim 2026",
+                image: "https://images.unsplash.com/photo-1533709752211-108cd487080d?auto=format&fit=crop&w=800&q=80",
+                snippet: "Profesyonel dart turnuvasında dokuz dartlık bitiriş izleyicilerden büyük alkış aldı.",
+                content: "PDC tarafından düzenlenen turnuvanın dördüncü gününde 9 dartlık kapanış gerçekleşti. Oyuncunun performansı turnuvanın en çok konuşulan anı oldu."
+            }
+        ];
+
+        // 2. SEKMELER
+        function switchTab(tabName) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            const target = document.getElementById(`tab-${tabName}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                btn.className = "nav-link px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5";
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabName}`);
+            if (activeBtn) {
+                activeBtn.className = "nav-link px-4 py-2 rounded-xl text-xs font-bold transition-all text-white bg-white/5 border border-white/10";
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        // 3. HABER PORTALI
+        let currentFilter = 'Tümü';
+
+        function renderNews(items) {
+            const grid = document.getElementById('newsGrid');
+            const previewGrid = document.getElementById('homeNewsPreview');
+            if(!grid) return;
+
+            grid.innerHTML = '';
+            if(items.length === 0) {
+                grid.innerHTML = `<div class="col-span-3 text-center py-8 text-gray-500 text-xs">Aramanızla eşleşen haber bulunamadı.</div>`;
+                return;
+            }
+
+            items.forEach(item => {
+                const card = `
+                    <div class="glass-panel rounded-2xl overflow-hidden border border-brandBorder hover:border-emerald-500/40 transition-all flex flex-col justify-between">
+                        <div>
+                            <img src="${item.image}" alt="" class="w-full h-40 object-cover">
+                            <div class="p-4 space-y-2">
+                                <span class="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider">${item.category}</span>
+                                <h3 class="text-sm font-bold text-white line-clamp-2">${item.title}</h3>
+                                <p class="text-xs text-gray-400 line-clamp-2">${item.snippet}</p>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="openNewsModal(${item.id})" class="w-full bg-brandDark hover:bg-emerald-500 hover:text-brandDark border border-brandBorder text-white font-bold py-2 rounded-xl text-xs transition-all">
+                                Haberi Oku
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+
+            if(previewGrid && currentFilter === 'Tümü') {
+                previewGrid.innerHTML = '';
+                items.slice(0, 3).forEach(item => {
+                    previewGrid.innerHTML += `
+                        <div class="glass-panel rounded-2xl p-4 flex gap-3 hover:border-emerald-500/30 transition-all cursor-pointer" onclick="switchTab('news'); openNewsModal(${item.id})">
+                            <img src="${item.image}" class="w-20 h-20 rounded-xl object-cover flex-shrink-0" alt="">
+                            <div class="space-y-1 my-auto">
+                                <span class="text-[9px] font-extrabold text-emerald-400 uppercase">${item.category}</span>
+                                <h4 class="text-xs font-bold text-white line-clamp-2">${item.title}</h4>
+                                <p class="text-[10px] text-gray-500">${item.date}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function filterNews(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-brandDark text-gray-400 hover:text-white border border-brandBorder";
+            });
+            event.target.className = "cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-emerald-500 text-brandDark";
+
+            if(cat === 'Tümü') {
+                renderNews(newsData);
+            } else {
+                renderNews(newsData.filter(n => n.category === cat));
+            }
+        }
+
+        function searchNews() {
+            const q = document.getElementById('newsSearchInput').value.toLowerCase();
+            renderNews(newsData.filter(n => n.title.toLowerCase().includes(q) || n.snippet.toLowerCase().includes(q)));
+        }
+
+        function openNewsModal(id) {
+            const item = newsData.find(n => n.id === id);
+            if(!item) return;
+
+            document.getElementById('modalCategory').innerText = item.category;
+            document.getElementById('modalTitle').innerText = item.title;
+            document.getElementById('modalDate').innerText = item.date;
+            document.getElementById('modalImage').src = item.image;
+            document.getElementById('modalContent').innerHTML = `<p class="font-semibold text-white">${item.snippet}</p><p>${item.content}</p>`;
+
+            document.getElementById('newsModal').classList.remove('hidden');
+        }
+
+        function closeNewsModal() {
+            document.getElementById('newsModal').classList.add('hidden');
+        }
+
+        // 4. BİLARDO OYUN ENJİNİ
+        const canvas = document.getElementById('billiardCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let audioCtx = null;
+        function playHitSound() {
+            try {
+                if(!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if(audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch(e){}
+        }
+
+        const FRICTION = 0.985;
+        const BALL_RADIUS = 10;
+        let balls = [];
+        let cueBall = null;
+        let power = 0;
+        let powerCharging = false;
+        let powerDir = 1;
+        let aimAngle = 0;
+        let shotsCount = 0;
+        let pocketedCount = 0;
+
+        const pockets = [
+            { x: 20, y: 20 },
+            { x: 850 / 2, y: 15 },
+            { x: 850 - 20, y: 20 },
+            { x: 20, y: 425 - 20 },
+            { x: 850 / 2, y: 425 - 15 },
+            { x: 850 - 20, y: 425 - 20 }
+        ];
+
+        class Ball {
+            constructor(x, y, color, isCue = false, number = 0) {
+                this.x = x;
+                this.y = y;
+                this.vx = 0;
+                this.vy = 0;
+                this.radius = BALL_RADIUS;
+                this.color = color;
+                this.isCue = isCue;
+                this.number = number;
+                this.inPocket = false;
+            }
+
+            update() {
+                if (this.inPocket) return;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                this.vx *= FRICTION;
+                this.vy *= FRICTION;
+
+                if (Math.abs(this.vx) < 0.05) this.vx = 0;
+                if (Math.abs(this.vy) < 0.05) this.vy = 0;
+
+                const margin = 20;
+                if (this.x - this.radius < margin) {
+                    this.x = margin + this.radius;
+                    this.vx *= -0.8;
+                }
+                if (this.x + this.radius > canvas.width - margin) {
+                    this.x = canvas.width - margin - this.radius;
+                    this.vx *= -0.8;
+                }
+                if (this.y - this.radius < margin) {
+                    this.y = margin + this.radius;
+                    this.vy *= -0.8;
+                }
+                if (this.y + this.radius > canvas.height - margin) {
+                    this.y = canvas.height - margin - this.radius;
+                    this.vy *= -0.8;
+                }
+
+                pockets.forEach(p => {
+                    const dx = this.x - p.x;
+                    const dy = this.y - p.y;
+                    if (Math.sqrt(dx * dx + dy * dy) < 18) {
+                        this.inPocket = true;
+                        this.vx = 0;
+                        this.vy = 0;
+                        playHitSound();
+
+                        if (this.isCue) {
+                            setTimeout(() => {
+                                this.inPocket = false;
+                                this.x = 200;
+                                this.y = canvas.height / 2;
+                                this.vx = 0;
+                                this.vy = 0;
+                            }, 400);
+                        } else {
+                            pocketedCount++;
+                            document.getElementById('scoreText').innerText = `${pocketedCount} / 7`;
+                        }
+                    }
+                });
+            }
+
+            draw() {
+                if (this.inPocket) return;
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                if (!this.isCue && this.number > 0) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 8px Montserrat';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(this.number, this.x, this.y);
+                }
+                ctx.restore();
+            }
+        }
+
+        function initBilliards() {
+            balls = [];
+            cueBall = new Ball(200, canvas.height / 2, '#ffffff', true);
+            balls.push(cueBall);
+
+            const colors = ['#F59E0B', '#3B82F6', '#EF4444', '#8B5CF6', '#F97316', '#10B981', '#DC2626', '#1E293B'];
+            const startX = 580;
+            const startY = canvas.height / 2;
+            let idx = 0;
+
+            for (let col = 0; col < 4; col++) {
+                for (let row = 0; row <= col; row++) {
+                    const x = startX + col * (BALL_RADIUS * 2 * 0.88);
+                    const y = startY + (row - col / 2) * (BALL_RADIUS * 2 + 1);
+                    balls.push(new Ball(x, y, colors[idx % colors.length], false, idx + 1));
+                    idx++;
+                }
+            }
+
+            pocketedCount = 0;
+            shotsCount = 0;
+            document.getElementById('scoreText').innerText = `0 / 7`;
+            document.getElementById('shotsText').innerText = `0`;
+        }
+
+        function handleCollisions() {
+            for (let i = 0; i < balls.length; i++) {
+                for (let j = i + 1; j < balls.length; j++) {
+                    const b1 = balls[i];
+                    const b2 = balls[j];
+
+                    if (b1.inPocket || b2.inPocket) continue;
+
+                    const dx = b2.x - b1.x;
+                    const dy = b2.y - b1.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < b1.radius + b2.radius) {
+                        playHitSound();
+
+                        const angle = Math.atan2(dy, dx);
+                        const sin = Math.sin(angle);
+                        const cos = Math.cos(angle);
+
+                        let vx1 = b1.vx * cos + b1.vy * sin;
+                        let vy1 = b1.vy * cos - b1.vx * sin;
+                        let vx2 = b2.vx * cos + b2.vy * sin;
+                        let vy2 = b2.vy * cos - b2.vx * sin;
+
+                        const finalVx1 = vx2;
+                        const finalVx2 = vx1;
+
+                        vx1 = finalVx1;
+                        vx2 = finalVx2;
+
+                        const overlap = (b1.radius + b2.radius) - dist;
+                        b1.x -= (overlap / 2) * cos;
+                        b1.y -= (overlap / 2) * sin;
+                        b2.x += (overlap / 2) * cos;
+                        b2.y += (overlap / 2) * sin;
+
+                        b1.vx = vx1 * cos - vy1 * sin;
+                        b1.vy = vy1 * cos + vx1 * sin;
+                        b2.vx = vx2 * cos - vy2 * sin;
+                        b2.vy = vx2 * cos + vy2 * sin;
+                    }
+                }
+            }
+        }
+
+        function areBallsMoving() {
+            return balls.some(b => !b.inPocket && (Math.abs(b.vx) > 0 || Math.abs(b.vy) > 0));
+        }
+
+        function gameLoop() {
+            ctx.fillStyle = '#095228';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = '#1c130d';
+            ctx.lineWidth = 16;
+            ctx.strokeRect(8, 8, canvas.width - 16, canvas.height - 16);
+
+            pockets.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 14, 0, Math.PI * 2);
+                ctx.fillStyle = '#0B0F17';
+                ctx.fill();
+            });
+
+            balls.forEach(b => {
+                b.update();
+                b.draw();
+            });
+
+            handleCollisions();
+
+            if (!areBallsMoving() && cueBall && !cueBall.inPocket) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(cueBall.x, cueBall.y);
+                ctx.lineTo(cueBall.x + Math.cos(aimAngle) * 140, cueBall.y + Math.sin(aimAngle) * 140);
+                ctx.strokeStyle = 'rgba(16, 185, 129, 0.6)';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([4, 4]);
+                ctx.stroke();
+                ctx.restore();
+
+                const cueLength = 200;
+                const cueOffset = 15 + (power * 0.3);
+                const cueEndX = cueBall.x - Math.cos(aimAngle) * cueOffset;
+                const cueEndY = cueBall.y - Math.sin(aimAngle) * cueOffset;
+                const cueStartX = cueBall.x - Math.cos(aimAngle) * (cueLength + cueOffset);
+                const cueStartY = cueBall.y - Math.sin(aimAngle) * (cueLength + cueOffset);
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(cueStartX, cueStartY);
+                ctx.lineTo(cueEndX, cueEndY);
+                ctx.strokeStyle = '#d97706';
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            if (powerCharging) {
+                power += 2 * powerDir;
+                if (power >= 100 || power <= 0) powerDir *= -1;
+                document.getElementById('powerBarFill').style.width = `${power}%`;
+                document.getElementById('powerPercent').innerText = `${Math.round(power)}%`;
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (areBallsMoving()) return;
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
+            aimAngle = Math.atan2(mouseY - cueBall.y, mouseX - cueBall.x);
+            
+            let deg = Math.round(aimAngle * (180 / Math.PI));
+            if(deg < 0) deg += 360;
+            document.getElementById('angleValue').innerText = `${deg}°`;
+        });
+
+        function startCharging() {
+            if (areBallsMoving() || cueBall.inPocket) return;
+            powerCharging = true;
+            power = 0;
+            powerDir = 1;
+        }
+
+        function releaseStrike() {
+            if (powerCharging) {
+                powerCharging = false;
+                const hitPower = (power / 100) * 20;
+                cueBall.vx = Math.cos(aimAngle) * hitPower;
+                cueBall.vy = Math.sin(aimAngle) * hitPower;
+
+                shotsCount++;
+                document.getElementById('shotsText').innerText = shotsCount;
+
+                power = 0;
+                document.getElementById('powerBarFill').style.width = '0%';
+                document.getElementById('powerPercent').innerText = '0%';
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if(e.code === 'Space' && !e.repeat) startCharging();
+        });
+        window.addEventListener('keyup', (e) => {
+            if(e.code === 'Space') releaseStrike();
+        });
+
+        function resetGame() {
+            initBilliards();
+        }
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderNews(newsData);
+            initBilliards();
+            gameLoop();
+        };
+    </script>
+</body>
+</html>
