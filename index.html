@@ -1,3 +1,322 @@
-<h1>Deneme Haber Sitesi</h1>
-<p>Bu site çok yakında efsane bir bilardo haber&oyun sitesi olacak. Takipte kalın!</p>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BİLARDİO | Premium Bilardo Haber & Oyun Platformu</title>
+    <!-- Google Fonts: Elit ve lüks yazı tipleri -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* BİLARDİO Kurumsal Renk Paleti ve CSS Ayarları */
+        :root {
+            --bg-color: #0b0c10;       /* Ultra derin siyah */
+            --surface-color: #1f2833;  /* Premium koyu lacivert/gri */
+            --gold: #c5a059;           /* Şampanya Altını */
+            --gold-glow: rgba(197, 160, 89, 0.3);
+            --text-main: #ffffff;
+            --text-muted: #c5c6c7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* BİLARDİO Navigasyon Barı */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+            background: rgba(11, 12, 16, 0.9);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 35px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold);
+            letter-spacing: 3px;
+        }
+
+        /* BİLARDİO Hero Karşılama Alanı */
+        .hero {
+            position: relative;
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.98)), 
+                        url('https://unsplash.com') no-repeat center center/cover;
+        }
+
+        .hero-badge {
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 6px 16px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            border-radius: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 56px;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 650px;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-bilardio {
+            display: inline-block;
+            padding: 14px 40px;
+            border: 1px solid var(--gold);
+            color: var(--text-main);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            background: transparent;
+            transition: all 0.4s ease;
+        }
+
+        .btn-bilardio:hover {
+            background-color: var(--gold);
+            color: var(--bg-color);
+            box-shadow: 0 0 25px var(--gold-glow);
+            cursor: pointer;
+        }
+
+        /* Ana İçerik Konteyneri */
+        .container {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            color: var(--text-main);
+            margin-bottom: 50px;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        /* BİLARDİO Seçkin Haber Kartları */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .news-card {
+            background-color: #11141a;
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .news-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: all 0.5s ease;
+        }
+
+        .news-card:hover .news-img {
+            filter: grayscale(0%);
+            scale: 1.03;
+        }
+
+        .news-content {
+            padding: 30px;
+        }
+
+        .news-tag {
+            color: var(--gold);
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .news-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .news-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .read-more {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        .read-more:hover {
+            color: var(--text-main);
+        }
+
+        /* BİLARDİO Oyun Alanı Modülü */
+        .game-zone {
+            background: linear-gradient(135deg, #11141a 0%, #0b0c10 100%);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-zone::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--gold);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            color: rgba(197, 160, 89, 0.6);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BİLARDİO Üst Menü -->
+    <header>
+        <a href="#" class="logo">BİLAR<span>DİO</span></a>
+        <nav>
+            <a href="#" class="active">Ana Sayfa</a>
+            <a href="#">Seçkin Haberler</a>
+            <a href="#">Oyun Arenası</a>
+            <a href="#">Pro Kulüp</a>
+        </nav>
+    </header>
+
+    <!-- BİLARDİO Karşılama Alanı -->
+    <section class="hero">
+        <div class="hero-badge">The Elite Club</div>
+        <h1>BİLAR<span>DİO</span></h1>
+        <p>Bilardo kültürünün en prestijli haberleri, profesyonel ekipman incelemeleri ve çok yakında yeni nesil Java fizik motoruyla tarayıcınıza gelecek özel oyun arenası.</p>
+        <a href="#arena" class="btn-bilardio">Arenaya Giriş Yap</a>
+    </section>
+
+    <!-- İçerik Alanı -->
+    <main class="container">
+        
+        <!-- Haberler Bölümü -->
+        <h2 class="section-title">Seçkin <span>Haberler</span></h2>
+        
+        <div class="news-grid">
+            <!-- Haber 1 -->
+            <article class="news-card">
+                <img src="https://unsplash.com" alt="Turnuva" class="news-img">
+                <div class="news-content">
+                    <span class="news-tag">Şampiyona Medyası</span>
+                    <h3>Dünya Kupası'nda Elit Eşleşmeler</h3>
+                    <p>Bilardo dünyasının zirvesindeki isimler, bu sezonun en prestijli kupasını müzelerine götürmek için yeşil masada kusursuzluğu arıyor.</p>
+                    <a href="#" class="read-more">Raporu İncele →</a>
+                </div>
+            </article>
+
+            <!-- Haber 2 -->
+            <article class="news-card">
+                <img src="https://unsplash.com" alt="Istaka" class="news-img">
+                <div class="news-content">
+                    <span class="news-tag">Masterclass & Ekipman</span>
+                    <h3>Özel Yapım Abanoz İstakalar</h3>
+                    <p>Mühendislik ve el işçiliğinin lüks birleşimi. Profesyonel sporcular için sınırlı sayıda üretilen karbon destekli yeni serinin detayları.</p>
+                    <a href="#" class="read-more">Detayları Gör →</a>
+                </div>
+            </article>
+        </div>
 
